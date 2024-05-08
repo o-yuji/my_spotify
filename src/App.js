@@ -1,9 +1,30 @@
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import spotify from "./lib/spotify";
+import { SongList } from "./components/SongList";
 
 export default function App() {
-  spotify.test();
+  const [isLoading, setIsLoading] = useState(false);
+  const [popularSongs, setPopularSongs] = useState([]);
 
+  useEffect(() => {
+    try {
+      setIsLoading(true);
+      fetchPopularSongs();
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const fetchPopularSongs = async () => {
+    const result = await spotify.getPopularSongs();
+    const popularSongs = result.items.map((item) => {
+      return item.track;
+    });
+    setPopularSongs(popularSongs);
+  };
+
+  console.log(popularSongs);
   // console.log(`ID:${process.env.REACT_APP_SPOTIFY_CLIENT_ID}`);
   // console.log(`SECRET:${process.env.REACT_APP_SPOTIFY_CLIENT_SECRET}`);
 
@@ -15,6 +36,7 @@ export default function App() {
         </header>
         <section>
           <h2 className="text-2xl font-semibold mb-5">Popular Songs</h2>
+          <SongList isLoading={isLoading} songs={popularSongs} />
         </section>
       </main>
     </div>
