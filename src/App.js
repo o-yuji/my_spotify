@@ -1,6 +1,12 @@
+// import { useState, useEffect } from "react";
+import spotify from "./lib/spotify";
+
 export default function App() {
-  console.log(`ID:${process.env.REACT_APP_SPOTIFY_CLIENT_ID}`);
-  console.log(`SECRET:${process.env.REACT_APP_SPOTIFY_CLIENT_SECRET}`);
+  spotify.test();
+
+  // console.log(`ID:${process.env.REACT_APP_SPOTIFY_CLIENT_ID}`);
+  // console.log(`SECRET:${process.env.REACT_APP_SPOTIFY_CLIENT_SECRET}`);
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-900 text-white">
       <main className="flex-1 p-8 mb-20">
