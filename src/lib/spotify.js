@@ -30,6 +30,14 @@ class SpotifyClient {
     // console.log(response.data);
     return response.data;
   }
+
+  async searchSongs(keyword, limit, offset) {
+    const response = await axios.get("https://api.spotify.com/v1/search", {
+      headers: { Authorization: "Bearer " + this.token },
+      params: { q: keyword, type: "track", limit, offset },
+    });
+    return response.data.tracks;
+  }
 }
 
 const spotify = await SpotifyClient.initialize();
